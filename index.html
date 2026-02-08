@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Intelligence and Analytics Lab – HKUST(GZ)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #003D7C;
+      --primary-light: #0057AE;
+      --accent: #00AEEF;
+      --text: #1a1a2e;
+      --text-muted: #555;
+      --bg: #ffffff;
+      --bg-alt: #f5f7fa;
+      --border: #e2e8f0;
+      --news-hover: #eef4fb;
+      --nav-height: 64px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .nav-logo-sub {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin-top: var(--nav-height);
+      height: 520px;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3560 40%, #0d4a7a 70%, #1a6098 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 520'%3E%3Cpath fill='%23ffffff08' d='M0,380 C200,320 400,260 600,300 C800,340 900,280 1100,260 C1200,252 1320,268 1440,250 L1440,520 L0,520Z'/%3E%3Cpath fill='%23ffffff05' d='M0,420 C150,380 350,340 550,360 C750,380 900,340 1100,310 C1250,290 1350,305 1440,300 L1440,520 L0,520Z'/%3E%3Cpath fill='%23ffffff0a' d='M0,460 C200,430 400,410 650,420 C850,428 1000,400 1200,390 C1300,386 1380,395 1440,392 L1440,520 L0,520Z'/%3E%3C/svg%3E") no-repeat bottom center / cover;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      padding: 0 24px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #0095cc;
+      transform: translateY(-1px);
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 80px 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      background: var(--bg);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 24px;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .about-image {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #e8f0fe, #cfe2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-image-placeholder {
+      text-align: center;
+      color: #94a3b8;
+    }
+
+    .about-image-placeholder i {
+      font-size: 64px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* research areas */
+    .research-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      padding: 4px 14px;
+      background: #eef4fb;
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* ===== NEWS ===== */
+    .news {
+      background: var(--bg-alt);
+    }
+
+    .news-list {
+      margin-top: 32px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .news-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 24px;
+      padding: 20px 28px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+      align-items: baseline;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item:hover {
+      background: var(--news-hover);
+    }
+
+    .news-date {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .news-text {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .news-text .venue {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 8px;
+      background: #e8f0fe;
+      color: var(--primary);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      background: var(--bg);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.8;
+    }
+
+    .contact-text .contact-info {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .contact-info-item i {
+      width: 16px;
+      color: var(--accent);
+    }
+
+    .contact-social {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .social-btn.twitter { background: #1DA1F2; }
+    .social-btn.github { background: #333; }
+    .social-btn.linkedin { background: #0A66C2; }
+    .social-btn.scholar { background: #4285F4; }
+    .social-btn.email { background: #EA4335; }
+
+    .contact-map {
+      width: 100%;
+      height: 200px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #e8f0fe, #cfe2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.7);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .about-inner,
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .news-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">DIA</div>
+      <div>
+        <div class="nav-logo-text">DIA Lab</div>
+        <div class="nav-logo-sub">HKUST(GZ)</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-university" style="font-size:10px"></i>
+        HKUST(GZ) · Guangzhou, China
+      </div>
+      <h1>Data Intelligence<br>and Analytics Lab</h1>
+      <p>We advance AI-driven data analytics and data-centric AI, bridging cutting-edge research with real-world impact.</p>
+      <a href="#about" class="btn-primary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-text">
+          <div class="section-label">About Us</div>
+          <h2 class="section-title">Data Intelligence<br>and Analytics Lab</h2>
+          <p>
+            The DIA Lab at HKUST(GZ) is dedicated to advancing the frontiers of data intelligence and analytics.
+            Our research focuses on developing novel AI methods to make data analysis smarter, faster, and more accessible.
+          </p>
+          <p>
+            We work on two primary directions: <strong>AI for Data Analytics</strong> — building intelligent systems that automate and augment data exploration, visualization, and insight generation; and <strong>Data-centric AI</strong> — improving data quality, data augmentation, and dataset construction for more reliable machine learning.
+          </p>
+          <div class="research-tags">
+            <span class="tag">AI for Data Analytics</span>
+            <span class="tag">Data-centric AI</span>
+            <span class="tag">NL2VIS</span>
+            <span class="tag">Table Understanding</span>
+            <span class="tag">LLM</span>
+          </div>
+          <a href="team.html" class="btn-outline" style="margin-top:24px">Meet the Team →</a>
+        </div>
+        <div class="about-image">
+          <div class="about-image-placeholder">
+            <i class="fas fa-chart-network"></i>
+            <div style="font-size:14px">Lab Photo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="news" id="news">
+    <div class="container">
+      <div class="section-label">Latest Updates</div>
+      <h2 class="section-title">Recent News</h2>
+      <div class="news-list">
+        <div class="news-item">
+          <span class="news-date">2024/10/12</span>
+          <span class="news-text">Our paper about xxxx was accepted by <span class="venue">SIGMOD-24</span>. Congrats to xxxx!</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024/10/12</span>
+          <span class="news-text">Our paper about xxxx was accepted by <span class="venue">VLDB-24</span>. Congrats to xxxx!</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024/10/12</span>
+          <span class="news-text">Our paper about xxxx was accepted by <span class="venue">VLDB-24</span>. Congrats to xxxx!</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024/10/12</span>
+          <span class="news-text">Our paper about xxxx was accepted by <span class="venue">VLDB-24</span>. Congrats to xxxx!</span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2024/10/12</span>
+          <span class="news-text">Our paper about xxxx was accepted by <span class="venue">VLDB-24</span>. Congrats to xxxx!</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="contact-text">
+          <div class="section-label">Get in Touch</div>
+          <h2 class="section-title">Contact Us</h2>
+          <p>
+            We are always looking for motivated students and collaborators.
+            If you are interested in joining the lab or working with us, feel free to reach out.
+          </p>
+          <div class="contact-info">
+            <div class="contact-info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>HKUST(GZ), Nansha, Guangzhou, China</span>
+            </div>
+            <div class="contact-info-item">
+              <i class="fas fa-envelope"></i>
+              <span>xxx@hkust-gz.edu.cn</span>
+            </div>
+          </div>
+        </div>
+        <div class="contact-social">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;">Follow Us</div>
+            <div class="social-links">
+              <a href="#" class="social-btn twitter" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-btn github" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-btn linkedin" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-btn scholar" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+              <a href="#" class="social-btn email" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="contact-map">
+            <div style="text-align:center">
+              <i class="fas fa-map-marked-alt" style="font-size:32px;margin-bottom:8px;display:block"></i>
+              HKUST(GZ) Campus Map
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2024 Data Intelligence and Analytics Lab, HKUST(GZ). All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Sitemap</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

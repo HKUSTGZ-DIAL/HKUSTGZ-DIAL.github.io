@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery – DIA Lab HKUST(GZ)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin: 40px 0 32px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ===== GALLERY GRID ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding-bottom: 64px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #dce8f7, #c5dbf0);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #7aa6c8;
+      font-size: 36px;
+      gap: 8px;
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover .gallery-placeholder {
+      transform: scale(1.05);
+    }
+
+    .gallery-placeholder span {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 61, 124, 0);
+      display: flex;
+      align-items: flex-end;
+      transition: background 0.3s;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      background: rgba(0, 61, 124, 0.45);
+    }
+
+    .gallery-caption {
+      padding: 16px;
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      position: relative;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 8px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px 8px;
+    }
+
+    .lightbox-close:hover { opacity: 0.7; }
+
+    /* Section headings */
+    .gallery-section {
+      margin-bottom: 8px;
+    }
+
+    .gallery-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">DIA</div>
+      <div>
+        <div class="nav-logo-text">DIA Lab</div>
+        <div class="nav-logo-sub">HKUST(GZ)</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-label">Photos & Videos</div>
+    <h1>Gallery</h1>
+  </div>
+
+  <div class="container">
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="events">Events</button>
+      <button class="filter-btn" data-filter="lab">Lab Life</button>
+      <button class="filter-btn" data-filter="awards">Awards</button>
+    </div>
+
+    <!-- 2024 -->
+    <div class="gallery-section">
+      <div class="gallery-section-title">2024</div>
+      <div class="gallery-grid">
+
+        <div class="gallery-item" data-category="events" data-caption="SIGMOD 2024 · Santiago, Chile">
+          <div class="gallery-placeholder">
+            <i class="fas fa-image"></i>
+            <span>SIGMOD 2024</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">SIGMOD 2024 · Santiago, Chile</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="lab" data-caption="Lab Group Photo 2024">
+          <div class="gallery-placeholder">
+            <i class="fas fa-users"></i>
+            <span>Group Photo</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Lab Group Photo 2024</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="awards" data-caption="Best Paper Award · VLDB 2024">
+          <div class="gallery-placeholder">
+            <i class="fas fa-trophy"></i>
+            <span>Best Paper</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Best Paper Award · VLDB 2024</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="events" data-caption="KDD 2024 · Barcelona">
+          <div class="gallery-placeholder">
+            <i class="fas fa-image"></i>
+            <span>KDD 2024</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">KDD 2024 · Barcelona</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="lab" data-caption="Lab Retreat 2024">
+          <div class="gallery-placeholder">
+            <i class="fas fa-mountain"></i>
+            <span>Lab Retreat</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Lab Retreat 2024</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="lab" data-caption="New Member Welcome Dinner">
+          <div class="gallery-placeholder">
+            <i class="fas fa-utensils"></i>
+            <span>Welcome Dinner</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">New Member Welcome Dinner</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="gallery-section" style="margin-top:40px">
+      <div class="gallery-section-title">2023</div>
+      <div class="gallery-grid">
+
+        <div class="gallery-item" data-category="events" data-caption="VLDB 2023 · Vancouver">
+          <div class="gallery-placeholder">
+            <i class="fas fa-image"></i>
+            <span>VLDB 2023</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">VLDB 2023 · Vancouver</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="lab" data-caption="Lab Group Photo 2023">
+          <div class="gallery-placeholder">
+            <i class="fas fa-users"></i>
+            <span>Group Photo</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Lab Group Photo 2023</div>
+          </div>
+        </div>
+
+        <div class="gallery-item" data-category="awards" data-caption="Outstanding Demo · SIGMOD 2023">
+          <div class="gallery-placeholder">
+            <i class="fas fa-medal"></i>
+            <span>Outstanding Demo</span>
+          </div>
+          <div class="gallery-overlay">
+            <div class="gallery-caption">Outstanding Demo · SIGMOD 2023</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2024 Data Intelligence and Analytics Lab, HKUST(GZ). All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Sitemap</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Lightbox (for when real images are added)
+    const lightbox = document.getElementById('lightbox');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
+  </script>
+
+</body>
+</html>

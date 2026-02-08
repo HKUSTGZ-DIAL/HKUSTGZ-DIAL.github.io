@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team – DIA Lab HKUST(GZ)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== MEMBER CARD ===== */
+    .member-grid {
+      display: grid;
+      gap: 32px;
+    }
+
+    .member-grid.cols-1 { grid-template-columns: repeat(1, 320px); }
+    .member-grid.cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 700px; }
+    .member-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .member-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .member-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .member-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #dce8f7, #c5dbf0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-avatar .avatar-icon {
+      font-size: 72px;
+      color: #8aabbf;
+    }
+
+    .director .member-avatar {
+      width: 180px;
+      height: 180px;
+    }
+
+    .member-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .member-role {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .member-links {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .member-links a {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--bg-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .member-links a:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* ===== SECTIONS ===== */
+    .team-section {
+      padding: 48px 0;
+    }
+
+    .team-section + .team-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .team-section-header {
+      margin-bottom: 36px;
+    }
+
+    .team-section-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin-top: 8px;
+    }
+
+    /* Director special layout */
+    .director-card {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .director-avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #dce8f7, #c5dbf0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .director-avatar .avatar-icon {
+      font-size: 100px;
+      color: #8aabbf;
+    }
+
+    .director-info h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .director-info .role {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .director-info p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .director-info .member-links {
+      justify-content: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .member-grid.cols-3,
+      .member-grid.cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .member-grid.cols-2,
+      .member-grid.cols-3,
+      .member-grid.cols-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .member-avatar { width: 120px; height: 120px; }
+      .director-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">DIA</div>
+      <div>
+        <div class="nav-logo-text">DIA Lab</div>
+        <div class="nav-logo-sub">HKUST(GZ)</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="team.html" class="active">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-label">People</div>
+    <h1>Our Team</h1>
+  </div>
+
+  <div class="container">
+
+    <!-- Lab Director -->
+    <div class="team-section">
+      <div class="team-section-header">
+        <h2 class="section-title" style="margin-bottom:0">Lab Director</h2>
+      </div>
+      <div class="director-card">
+        <div class="director-avatar">
+          <i class="fas fa-user avatar-icon"></i>
+        </div>
+        <div class="director-info">
+          <h3>Prof. Xxx Xxx</h3>
+          <div class="role">Associate Professor · HKUST(GZ)</div>
+          <p>
+            Prof. Xxx Xxx is an Associate Professor at the Thrust of Data Science and Analytics, HKUST(GZ).
+            His research interests lie in data intelligence and analytics, with a focus on AI for data analytics and data-centric AI.
+          </p>
+          <p>
+            He received his Ph.D. from xxx University. His work has been published at top-tier venues including SIGMOD, VLDB, KDD, and NeurIPS.
+          </p>
+          <div class="member-links" style="gap:10px">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PhD Students -->
+    <div class="team-section">
+      <div class="team-section-header">
+        <h2 class="section-title" style="margin-bottom:4px">PhD Students</h2>
+      </div>
+      <div class="member-grid cols-4">
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">PhD Student · 2022–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">PhD Student · 2022–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">PhD Student · 2023–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">PhD Student · 2023–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MPhil Students -->
+    <div class="team-section">
+      <div class="team-section-header">
+        <h2 class="section-title" style="margin-bottom:4px">MPhil Students</h2>
+      </div>
+      <div class="member-grid cols-4">
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">MPhil Student · 2023–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">MPhil Student · 2023–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">Student Name</div>
+          <div class="member-role">MPhil Student · 2024–</div>
+          <div class="member-links">
+            <a href="#" title="Homepage"><i class="fas fa-globe"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Research Assistants -->
+    <div class="team-section">
+      <div class="team-section-header">
+        <h2 class="section-title" style="margin-bottom:4px">Research Assistants</h2>
+      </div>
+      <div class="member-grid cols-4">
+
+        <div class="member-card">
+          <div class="member-avatar"><i class="fas fa-user avatar-icon"></i></div>
+          <div class="member-name">RA Name</div>
+          <div class="member-role">Research Assistant</div>
+          <div class="member-links">
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2024 Data Intelligence and Analytics Lab, HKUST(GZ). All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Sitemap</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

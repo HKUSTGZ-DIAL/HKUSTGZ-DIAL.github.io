@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications – DIA Lab HKUST(GZ)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== FILTER TABS ===== */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin: 40px 0 32px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* ===== PUBLICATION LIST ===== */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pub-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+      transition: background 0.15s;
+    }
+
+    .pub-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .pub-thumb {
+      width: 120px;
+      height: 84px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #e8f0fe, #cfe2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 28px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .pub-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .pub-content {}
+
+    .pub-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .pub-authors {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .pub-venue-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pub-venue {
+      display: inline-block;
+      padding: 2px 10px;
+      background: #e8f0fe;
+      color: var(--primary);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .pub-year {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .pub-category {
+      display: inline-block;
+      padding: 2px 10px;
+      background: #fef3e2;
+      color: #b45309;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .pub-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pub-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .pub-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* hidden for filtering */
+    .pub-item[data-hidden="true"] {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .pub-item {
+        grid-template-columns: 1fr;
+      }
+      .pub-thumb { width: 100%; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">DIA</div>
+      <div>
+        <div class="nav-logo-text">DIA Lab</div>
+        <div class="nav-logo-sub">HKUST(GZ)</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html" class="active">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-label">Research Output</div>
+    <h1>Publications</h1>
+  </div>
+
+  <div class="container">
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ai-analytics">AI for Data Analytics</button>
+      <button class="filter-btn" data-filter="data-centric">Data-centric AI</button>
+    </div>
+
+    <!-- PUBLICATION LIST -->
+    <div class="pub-list" id="pubList">
+
+      <div class="pub-item" data-category="ai-analytics">
+        <div class="pub-thumb"><i class="fas fa-chart-bar"></i></div>
+        <div class="pub-content">
+          <div class="pub-title">Paper Title: A Study on Natural Language to Visualization</div>
+          <div class="pub-authors">Author A, Author B, <strong>Xxx Xxx</strong>, Author C</div>
+          <div class="pub-venue-row">
+            <span class="pub-venue">SIGMOD 2024</span>
+            <span class="pub-year">2024</span>
+            <span class="pub-category">AI for Data Analytics</span>
+          </div>
+          <div class="pub-links">
+            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+            <a href="#" class="pub-link"><i class="fas fa-database"></i> Data</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-category="data-centric">
+        <div class="pub-thumb"><i class="fas fa-brain"></i></div>
+        <div class="pub-content">
+          <div class="pub-title">Paper Title: Data Quality Enhancement for Machine Learning</div>
+          <div class="pub-authors">Author B, <strong>Xxx Xxx</strong>, Author D, Author E</div>
+          <div class="pub-venue-row">
+            <span class="pub-venue">VLDB 2024</span>
+            <span class="pub-year">2024</span>
+            <span class="pub-category">Data-centric AI</span>
+          </div>
+          <div class="pub-links">
+            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-category="ai-analytics">
+        <div class="pub-thumb"><i class="fas fa-table"></i></div>
+        <div class="pub-content">
+          <div class="pub-title">Paper Title: Intelligent Table Understanding with Large Language Models</div>
+          <div class="pub-authors"><strong>Xxx Xxx</strong>, Author F, Author G</div>
+          <div class="pub-venue-row">
+            <span class="pub-venue">KDD 2024</span>
+            <span class="pub-year">2024</span>
+            <span class="pub-category">AI for Data Analytics</span>
+          </div>
+          <div class="pub-links">
+            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+            <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> Project</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-category="data-centric">
+        <div class="pub-thumb"><i class="fas fa-robot"></i></div>
+        <div class="pub-content">
+          <div class="pub-title">Paper Title: Benchmark for Data-centric AI Evaluation</div>
+          <div class="pub-authors">Author H, Author I, <strong>Xxx Xxx</strong></div>
+          <div class="pub-venue-row">
+            <span class="pub-venue">NeurIPS 2023</span>
+            <span class="pub-year">2023</span>
+            <span class="pub-category">Data-centric AI</span>
+          </div>
+          <div class="pub-links">
+            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-category="ai-analytics">
+        <div class="pub-thumb"><i class="fas fa-chart-line"></i></div>
+        <div class="pub-content">
+          <div class="pub-title">Paper Title: Automated Chart Understanding and Question Answering</div>
+          <div class="pub-authors">Author J, <strong>Xxx Xxx</strong>, Author K, Author L</div>
+          <div class="pub-venue-row">
+            <span class="pub-venue">VLDB 2023</span>
+            <span class="pub-year">2023</span>
+            <span class="pub-category">AI for Data Analytics</span>
+          </div>
+          <div class="pub-links">
+            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="pub-link"><i class="fas fa-database"></i> Dataset</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-category="data-centric">
+        <div class="pub-thumb"><i class="fas fa-cogs"></i></div>
+        <div class="pub-content">
+          <div class="pub-title">Paper Title: Automated Data Augmentation for Statistical Analysis</div>
+          <div class="pub-authors"><strong>Xxx Xxx</strong>, Author M, Author N</div>
+          <div class="pub-venue-row">
+            <span class="pub-venue">ICDE 2023</span>
+            <span class="pub-year">2023</span>
+            <span class="pub-category">Data-centric AI</span>
+          </div>
+          <div class="pub-links">
+            <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> PDF</a>
+            <a href="#" class="pub-link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2024 Data Intelligence and Analytics Lab, HKUST(GZ). All rights reserved.</span>
+        <span><a href="#">Privacy Policy</a> · <a href="#">Sitemap</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const pubItems = document.querySelectorAll('.pub-item');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        pubItems.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.removeAttribute('data-hidden');
+          } else {
+            item.setAttribute('data-hidden', 'true');
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
